@@ -1,8 +1,8 @@
 import numpy as np  
 import sys,os  
 import cv2
-caffe_root = '/home/yaochuanqi/work/ssd/caffe/'
-sys.path.insert(0, caffe_root + 'python')  
+# caffe_root = '/home/yaochuanqi/work/ssd/caffe/'
+# sys.path.insert(0, caffe_root + 'python')  
 import caffe  
 
 
@@ -41,7 +41,7 @@ def postprocess(img, out):
     conf = out['detection_out'][0,0,:,2]
     return (box.astype(np.int32), conf, cls)
 
-def detect(imgfile):
+def detect(imgfile, f):
     origimg = cv2.imread(imgfile)
     img = preprocess(origimg)
     
@@ -59,13 +59,15 @@ def detect(imgfile):
        p3 = (max(p1[0], 15), max(p1[1], 15))
        title = "%s:%.2f" % (CLASSES[int(cls[i])], conf[i])
        cv2.putText(origimg, title, p3, cv2.FONT_ITALIC, 0.6, (0, 255, 0), 1)
-    cv2.imshow("SSD", origimg)
- 
-    k = cv2.waitKey(0) & 0xff
+    # Save image instead of display
+    cv2.imwrite('output/'+f, origimg)
+    #cv2.imshow("SSD", origimg)
+    #k = cv2.waitKey(0) & 0xff
         #Exit if ESC pressed
-    if k == 27 : return False
+    #if k == 27 : return False
     return True
 
 for f in os.listdir(test_dir):
-    if detect(test_dir + "/" + f) == False:
+    print f
+    if detect(test_dir + "/" + f, f) == False:
        break

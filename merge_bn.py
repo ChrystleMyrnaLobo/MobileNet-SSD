@@ -5,8 +5,8 @@ import logging
 
 import numpy as np
 try:
-    caffe_root = '/home/yaochuanqi/work/caffe/'
-    sys.path.insert(0, caffe_root + 'python')
+#    caffe_root = '/home/yaochuanqi/work/caffe/'
+#    sys.path.insert(0, caffe_root + 'python')
     import caffe
 except ImportError:
     logging.fatal("Cannot find caffe!")
