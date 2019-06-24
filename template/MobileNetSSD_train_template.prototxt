@@ -9,7 +9,14 @@ layer {
   }
   transform_param {
     scale: 0.007843
+    # randomly horizontally mirror the image
     mirror: true
+    force_color: true
+    # crop a `crop_size` x `crop_size` patch:
+    # - at random during training
+    # - from the center during testing
+    crop_size: 227
+    # mean_file: "mean.binaryproto"
     mean_value: 127.5
     mean_value: 127.5
     mean_value: 127.5
@@ -3210,5 +3217,6 @@ layer {
     code_type: CENTER_SIZE
     ignore_cross_boundary_bbox: false
     mining_type: MAX_NEGATIVE
+    #mining_type: HARD_EXAMPLE
   }
 }
